@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DocAtHome — For Dummies Guide</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0f172a; --navy1: #1e293b; --navy2: #334155;
+  --blue: #3b82f6; --green: #10b981; --amber: #f59e0b;
+  --red: #ef4444; --purple: #8b5cf6;
+  --text: #f1f5f9; --muted: #94a3b8; --border: rgba(255,255,255,0.08);
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--navy); color: var(--text); line-height: 1.7; }
+.container { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* Header */
+.hero { text-align: center; padding: 48px 0 56px; }
+.hero-tag { display: inline-block; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; padding: 5px 16px; border-radius: 100px; font-size: .8rem; font-weight: 600; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -.03em; margin-bottom: 12px; }
+.hero h1 span { color: var(--blue); }
+.hero p { color: var(--muted); font-size: 1rem; max-width: 540px; margin: 0 auto; }
+
+/* Sections */
+.section { margin-bottom: 48px; }
+.section-label {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--muted); margin-bottom: 20px;
+}
+.section-label::after { content:''; flex:1; height:1px; background: var(--border); }
+.section-label span { background: var(--navy1); padding: 4px 10px; border-radius: 6px; }
+
+h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+p  { font-size: .9rem; color: var(--muted); margin-bottom: 12px; }
+strong { color: var(--text); }
+
+/* Cards */
+.card { background: var(--navy1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; }
+.card.highlight { border-color: rgba(59,130,246,.3); background: rgba(59,130,246,.06); }
+.card.green  { border-color: rgba(16,185,129,.3); background: rgba(16,185,129,.06); }
+.card.amber  { border-color: rgba(245,158,11,.3); background: rgba(245,158,11,.06); }
+.card.red    { border-color: rgba(239,68,68,.3); background: rgba(239,68,68,.06); }
+.card.purple { border-color: rgba(139,92,246,.3); background: rgba(139,92,246,.06); }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:600px) { .grid2 { grid-template-columns: 1fr; } }
+
+/* Role cards */
+.role-card { border-radius: 12px; padding: 20px; border: 1px solid var(--border); background: var(--navy1); }
+.role-icon { font-size: 2rem; margin-bottom: 8px; }
+.role-name { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+.role-one  { font-size: .82rem; color: var(--muted); margin-bottom: 12px; }
+.role-say  { background: rgba(255,255,255,.04); border-radius: 8px; padding: 10px 14px; font-size: .82rem; font-style: italic; border-left: 3px solid; }
+
+/* QA block */
+.qa { margin-bottom: 16px; border-radius: 10px; overflow: hidden; }
+.qa-q { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.2); padding: 12px 16px; font-size: .88rem; font-weight: 700; color: #93c5fd; }
+.qa-a { background: var(--navy1); border: 1px solid var(--border); border-top: none; padding: 14px 16px; font-size: .86rem; color: var(--text); }
+
+/* Pill */
+.pill { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; margin: 2px; }
+.pill-blue   { background: rgba(59,130,246,.15); color: #93c5fd; }
+.pill-green  { background: rgba(16,185,129,.15); color: #6ee7b7; }
+.pill-amber  { background: rgba(245,158,11,.15); color: #fcd34d; }
+.pill-red    { background: rgba(239,68,68,.15);  color: #fca5a5; }
+.pill-purple { background: rgba(139,92,246,.15); color: #c4b5fd; }
+
+/* Lifeline */
+.lifeline { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; background: rgba(16,185,129,.07); border: 1px solid rgba(16,185,129,.25); border-radius: 10px; margin-bottom: 10px; }
+.lifeline-icon { font-size: 1.4rem; flex-shrink: 0; }
+.lifeline-text { font-size: .85rem; }
+.lifeline-text strong { color: #6ee7b7; display: block; margin-bottom: 2px; }
+
+/* Danger */
+.danger { background: rgba(239,68,68,.07); border: 1px solid rgba(239,68,68,.25); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; font-size: .85rem; }
+.danger strong { color: #fca5a5; }
+
+/* Table simple */
+.simple-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.simple-table th { background: rgba(255,255,255,.06); padding: 10px 14px; text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.simple-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.simple-table tr:last-child td { border-bottom: none; }
+.simple-table td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+/* Alert box */
+.alert { border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; }
+.alert-blue { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.25); }
+.alert-amber { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); }
+.alert p { margin: 0; color: var(--text); }
+
+/* Number steps */
+.steps { list-style: none; }
+.steps li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: .88rem; }
+.steps li:last-child { border-bottom: none; }
+.step-n { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="hero">
+  <div class="hero-tag">📖 For Groupmates — Read This Before The Defense</div>
+  <h1>DocAtHome <span>Explained</span><br>For Non-Coders</h1>
+  <p>Everything you need to understand this project, survive the defense, and not embarrass yourself. Read it twice.</p>
+</div>
+
+<!-- ═══ SECTION 1: WHAT IS THIS PROJECT -->
+<div class="section">
+  <div class="section-label"><span>Section 1</span></div>
+  <h2>What is DocAtHome? (The Simple Version)</h2>
+
+  <div class="card highlight" style="margin-bottom:16px">
+    <h3>🏠 One-line explanation you must memorize:</h3>
+    <p style="color:var(--text);font-size:1rem;margin:0"><strong>"DocAtHome is a software system where patients can book a doctor or nurse to come to their home, manage their appointments, and pay — all from a desktop app."</strong></p>
+  </div>
+
+  <div class="card">
+    <h3>🍔 Think of it like Uber Eats — but for healthcare</h3>
+    <p>Instead of ordering food, you're booking a <strong>doctor or nurse</strong> to come to your house.<br>
+    Instead of a restaurant, there are <strong>doctors and nurses</strong> offering their services.<br>
+    Instead of a delivery tracker, you have an <strong>appointment status</strong> (Pending → Accepted → Paid).<br>
+    And an <strong>Admin</strong> manages the whole platform — like the company behind the app.</p>
+  </div>
+
+  <div class="card">
+    <h3>🌍 Why does it exist?</h3>
+    <p>In Bangladesh, if you want a doctor at home, you call someone, ask your relatives, or search randomly. There's no proper system. DocAtHome fixes that by making it <strong>organized and digital</strong> — book online, pay digitally, track everything.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2: THE 4 ROLES -->
+<div class="section">
+  <div class="section-label"><span>Section 2</span></div>
+  <h2>The 4 Types of Users</h2>
+  <p>The whole system is built around 4 different people. Each one has their own screen when they log in.</p>
+
+  <div class="grid2">
+    <div class="role-card" style="border-top: 3px solid #ef4444">
+      <div class="role-icon">🛡️</div>
+      <div class="role-name">Admin</div>
+      <div class="role-one">The boss. Controls everything.</div>
+      <div class="role-say" style="border-color:#ef4444;color:#fca5a5">
+        "The Admin manages the entire platform — adds/removes doctors, nurses, and patients, sees all bookings, and tracks revenue."
+      </div>
+    </div>
+    <div class="role-card" style="border-top: 3px solid #3b82f6">
+      <div class="role-icon">🧑‍⚕️</div>
+      <div class="role-name">Patient</div>
+      <div class="role-one">The customer. Books and pays.</div>
+      <div class="role-say" style="border-color:#3b82f6;color:#93c5fd">
+        "Patients register, book a doctor or nurse for a home visit, track their appointment status, and pay once accepted."
+      </div>
+    </div>
+    <div class="role-card" style="border-top: 3px solid #10b981">
+      <div class="role-icon">👨‍⚕️</div>
+      <div class="role-name">Doctor</div>
+      <div class="role-one">Views requests, accepts or rejects.</div>
+      <div class="role-say" style="border-color:#10b981;color:#6ee7b7">
+        "Doctors see all incoming appointment requests, can toggle their availability, and accept or reject each request."
+      </div>
+    </div>
+    <div class="role-card" style="border-top: 3px solid #8b5cf6">
+      <div class="role-icon">👩‍⚕️</div>
+      <div class="role-name">Nurse</div>
+      <div class="role-one">Offers specific services, accepts bookings.</div>
+      <div class="role-say" style="border-color:#8b5cf6;color:#c4b5fd">
+        "Nurses manage service bookings — Injection, Wound Care, IV Drip, etc. They can mark themselves unavailable and accept or reject requests."
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3: HOW IT WORKS (THE FLOW) -->
+<div class="section">
+  <div class="section-label"><span>Section 3</span></div>
+  <h2>How a Booking Works (Step by Step)</h2>
+  <p>If a panel member asks "walk me through the system" — use this flow.</p>
+
+  <div class="card">
+    <ul class="steps">
+      <li><div class="step-n">1</div><div>Patient <strong>registers</strong> in the system and logs in to their dashboard.</div></li>
+      <li><div class="step-n">2</div><div>Patient clicks <strong>"Book Doctor"</strong> — picks a doctor, date, time, and reason. The system checks there's no conflict (same doctor, same time).</div></li>
+      <li><div class="step-n">3</div><div>The booking is created with status <strong>"Pending"</strong> — the doctor hasn't responded yet.</div></li>
+      <li><div class="step-n">4</div><div>The doctor logs in, sees the request, and clicks <strong>Accept or Reject</strong>.</div></li>
+      <li><div class="step-n">5</div><div>The patient's dashboard updates immediately — they see <strong>"Accepted"</strong>.</div></li>
+      <li><div class="step-n">6</div><div>The patient selects the accepted appointment and clicks <strong>"Pay"</strong>. They choose Cash, Card, or Bkash. Payment is recorded.</div></li>
+      <li><div class="step-n">7</div><div>The Admin can see all of this happening in real time from the Admin Dashboard.</div></li>
+    </ul>
+  </div>
+
+  <div class="alert alert-blue">
+    <p>💡 <strong>Nurse bookings work the same way</strong> — just replace "doctor" with "nurse" and "appointment" with "service booking." The nurse also picks a service type like Injection or Wound Care, which has a fixed price.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: THE DATABASE (SIMPLE) -->
+<div class="section">
+  <div class="section-label"><span>Section 4</span></div>
+  <h2>The Database — 7 Tables, Explained Simply</h2>
+  <p>The database is like 7 Excel spreadsheets that store all the data. Each table stores one type of information.</p>
+
+  <div class="card">
+    <table class="simple-table">
+      <thead><tr><th>Table Name</th><th>What it stores</th><th>Analogy</th></tr></thead>
+      <tbody>
+        <tr><td>Admins</td><td>Admin login accounts</td><td>The manager's ID card</td></tr>
+        <tr><td>Patients</td><td>Patient profiles, name, phone, medical history</td><td>A hospital patient file</td></tr>
+        <tr><td>Doctors</td><td>Doctor info + their specialty + availability</td><td>A doctor's profile card</td></tr>
+        <tr><td>Nurses</td><td>Nurse info + license number + availability</td><td>A nurse's staff record</td></tr>
+        <tr><td>Appointments</td><td>Which patient booked which doctor, when, and the current status</td><td>A booking confirmation slip</td></tr>
+        <tr><td>NurseBookings</td><td>Which patient booked which nurse + what service</td><td>A service order form</td></tr>
+        <tr><td>Payments</td><td>Payment records for both doctor and nurse bookings</td><td>A receipt</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card amber">
+    <h3>🔑 The "smart" thing about Payments</h3>
+    <p>Instead of having two payment tables (one for doctors, one for nurses), we use <strong>one Payments table</strong> with a column called <strong>RelatedType</strong> that says "Appointment" or "NurseBooking." This saves code and keeps things clean. If the panel asks — this is called a <strong>polymorphic table</strong>.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: TECHNICAL TERMS CHEAT SHEET -->
+<div class="section">
+  <div class="section-label"><span>Section 5</span></div>
+  <h2>Technical Terms — What They Mean in Normal Words</h2>
+  <p>The panel might use these words. Here's what they actually mean.</p>
+
+  <div class="card">
+    <table class="simple-table">
+      <thead><tr><th>Technical Term</th><th>What it actually means</th></tr></thead>
+      <tbody>
+        <tr><td>WinForms</td><td>The type of desktop app — the windows, buttons, and forms you see on screen. Built with C#.</td></tr>
+        <tr><td>SQL Server</td><td>The database software — where all the data is saved (like a powerful Excel).</td></tr>
+        <tr><td>ADO.NET</td><td>The bridge between the app and the database — how C# talks to SQL Server.</td></tr>
+        <tr><td>async/await</td><td>When the app loads data, it doesn't freeze — you can still move the window. That's async.</td></tr>
+        <tr><td>Foreign Key (FK)</td><td>A link between two tables. Like how an Appointment stores a PatientID to know which patient made it.</td></tr>
+        <tr><td>Primary Key (PK)</td><td>The unique ID for each row — like a patient's ID number.</td></tr>
+        <tr><td>3NF (Third Normal Form)</td><td>A rule for good database design — no repeated/redundant data. Our DB follows this.</td></tr>
+        <tr><td>BCrypt</td><td>A secure way to store passwords. We use a simpler method for the prototype, but the code is ready to switch.</td></tr>
+        <tr><td>SMTP / OTP</td><td>SMTP = email sending. OTP = the 6-digit code sent to email for password reset.</td></tr>
+        <tr><td>Role-based access</td><td>Each user type (Admin, Patient, Doctor, Nurse) has their own screen and permissions.</td></tr>
+        <tr><td>.NET Framework 4.8</td><td>The version of Microsoft's software platform the app runs on. Like saying "Android 13" for a phone app.</td></tr>
+        <tr><td>Parameterized query</td><td>A safe way to search the database — prevents hackers from injecting fake commands (SQL injection).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6: QUESTIONS YOU WILL BE ASKED -->
+<div class="section">
+  <div class="section-label"><span>Section 6</span></div>
+  <h2>Questions the Panel Will Ask — and Safe Answers</h2>
+  <p>These are real questions you might get. Read the answers out loud until you can say them naturally.</p>
+
+  <div class="qa">
+    <div class="qa-q">Q: What is DocAtHome?</div>
+    <div class="qa-a">"DocAtHome is a role-based home healthcare management system. Patients can book doctors and nurses for home visits, track their appointment status, and make payments — all from a desktop application. There are four roles: Admin, Patient, Doctor, and Nurse, each with their own dashboard."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: What was your contribution to the project?</div>
+    <div class="qa-a">Pick one area and own it. Options:<br><br>
+    <strong>Option A (Database):</strong> "I worked on the database design — defining the 7 tables, the relationships between them, and ensuring the schema is in Third Normal Form."<br><br>
+    <strong>Option B (UI/Testing):</strong> "I focused on the user interface flow and testing — making sure each role's journey works correctly, forms validate properly, and buttons behave as expected."<br><br>
+    <strong>Option C (Documentation/Logic):</strong> "I handled the business logic planning — defining the booking flow, the appointment status lifecycle, and the payment process."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: How does a patient book a doctor?</div>
+    <div class="qa-a">"The patient logs in and clicks 'Book Doctor.' They select an available doctor from a dropdown — only doctors who have marked themselves available appear. They pick a date, time, and describe their reason. The system checks for conflicts — if the doctor already has a booking at that exact time, the request is blocked. Otherwise it's submitted with status Pending, waiting for the doctor to accept or reject."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: How does the payment work?</div>
+    <div class="qa-a">"Once a doctor or nurse accepts an appointment, the patient can pay from their dashboard. They select the accepted booking and click 'Pay.' A payment form appears with three options: Cash, Card, or Bkash. If they choose Card, a card number field appears and the amount is validated. On confirmation, a payment record is saved to the Payments table and the patient's unpaid bill counter updates."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: What is the difference between Appointments and NurseBookings?</div>
+    <div class="qa-a">"Appointments are for booking a doctor — a general visit with a description of the problem. NurseBookings are for booking a specific nursing service — like an Injection, Wound Care, IV Drip, Physical Therapy, or Elderly Care. Each service has a fixed price defined in the system, from 200 to 400 BDT."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: Why did you choose a desktop app?</div>
+    <div class="qa-a">"Desktop was chosen because it let us focus on the core business logic — the database design, multi-role architecture, and full booking flow — without splitting effort across web servers, APIs, and browser compatibility. WinForms on .NET Framework 4.8 is stable and runs on any Windows machine, which is realistic for a clinic admin workstation. The database is completely independent of the UI, so a web front-end could be added later without changing the schema."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: How many tables are in the database?</div>
+    <div class="qa-a">"Seven tables — Admins, Patients, Doctors, Nurses, Appointments, NurseBookings, and Payments."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: Is your database normalized?</div>
+    <div class="qa-a">"Yes, to Third Normal Form. Each table stores only information about one entity. For example, patient details aren't repeated inside the Appointments table — we only store the PatientID as a foreign key reference. Doctor specialty lives in the Doctors table, not copied into every appointment."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: What happens if a doctor rejects an appointment?</div>
+    <div class="qa-a">"The appointment status changes to Rejected. The patient can see this immediately on their dashboard through the notification banner and the appointment history grid. They can then book again with a different doctor or a different time."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: What happens if two patients try to book the same doctor at the same time?</div>
+    <div class="qa-a">"The system has conflict detection. Before saving any new appointment, it checks if that doctor already has a booking with the same date and time that hasn't been rejected or cancelled. If a conflict is found, the second booking is blocked and the patient is told to pick a different slot."</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q">Q: What would you improve if you had more time?</div>
+    <div class="qa-a">"Three things. First, proper password hashing with BCrypt — currently it's a prototype stub, but the code is structured so it's literally a two-line change. Second, email notifications when a doctor accepts or rejects — the email infrastructure is already built for OTP, so it's straightforward to extend. Third, a web or mobile front-end that connects to the same database through an API, so patients can book from their phone."</div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 7: LIFELINES -->
+<div class="section">
+  <div class="section-label"><span>Section 7</span></div>
+  <h2>🆘 Lifelines — What to Say When You Don't Know</h2>
+  <p>You WILL get a question you don't know. Here's how to handle it without panicking.</p>
+
+  <div class="lifeline">
+    <div class="lifeline-icon">🎯</div>
+    <div class="lifeline-text">
+      <strong>Redirect to something you know</strong>
+      "That's related to [part you know] — in our system, [explain what you know]. The specific implementation of [part you don't know] was handled in the [form/database/logic] layer."
+    </div>
+  </div>
+
+  <div class="lifeline">
+    <div class="lifeline-icon">🤝</div>
+    <div class="lifeline-text">
+      <strong>Pass to a groupmate naturally</strong>
+      "I can give you the high-level answer — [say what you know] — and [groupmate name] can go deeper on the implementation."
+    </div>
+  </div>
+
+  <div class="lifeline">
+    <div class="lifeline-icon">🧱</div>
+    <div class="lifeline-text">
+      <strong>Answer with the design principle, not the code</strong>
+      "The design decision there was to [keep it simple / avoid duplication / make it extensible]. In practice that means [explain what it does in plain English]."
+    </div>
+  </div>
+
+  <div class="lifeline">
+    <div class="lifeline-icon">🛡️</div>
+    <div class="lifeline-text">
+      <strong>The honest pivot (works every time)</strong>
+      "Honestly, I'd want to double-check the exact implementation before giving you a wrong answer — but what I can tell you confidently is [something true about the system]."
+    </div>
+  </div>
+
+  <div class="danger">
+    <strong>❌ NEVER say these things:</strong><br>
+    "I don't know anything about this project." · "I didn't work on that part." · "This isn't my part." · Just going silent and staring at the panel.
+  </div>
+
+  <div class="alert alert-amber">
+    <p>⚠️ <strong>If the panel asks you to do something live on the app</strong> — like change a button color or add a column — just say: "Sure. That would be done in Theme.cs since it centralizes all the visual styles — changing one line there updates every button in every form."</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 8: MEMORIZE THESE NUMBERS -->
+<div class="section">
+  <div class="section-label"><span>Section 8</span></div>
+  <h2>⚡ Numbers You Must Know by Heart</h2>
+
+  <div class="grid2">
+    <div class="card green"><h3 style="font-size:2rem;color:#6ee7b7;margin-bottom:4px">18</h3><p style="margin:0">Forms (screens) in the app</p></div>
+    <div class="card green"><h3 style="font-size:2rem;color:#6ee7b7;margin-bottom:4px">7</h3><p style="margin:0">Database tables</p></div>
+    <div class="card green"><h3 style="font-size:2rem;color:#6ee7b7;margin-bottom:4px">4</h3><p style="margin:0">User roles</p></div>
+    <div class="card green"><h3 style="font-size:2rem;color:#6ee7b7;margin-bottom:4px">5</h3><p style="margin:0">Nurse service types</p></div>
+    <div class="card amber"><h3 style="font-size:2rem;color:#fcd34d;margin-bottom:4px">500</h3><p style="margin:0">BDT — doctor appointment price</p></div>
+    <div class="card amber"><h3 style="font-size:2rem;color:#fcd34d;margin-bottom:4px">5</h3><p style="margin:0">Failed logins before 15-min lockout</p></div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h3>Service prices to remember:</h3>
+    <p>Injection <strong>200</strong> · Wound Care <strong>250</strong> · Physical Therapy <strong>300</strong> · IV Drip <strong>350</strong> · Elderly Care <strong>400</strong> · Doctor Appointment <strong>500</strong> (all in BDT)</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 9: DEMO LOGIN CREDENTIALS -->
+<div class="section">
+  <div class="section-label"><span>Section 9</span></div>
+  <h2>🔑 Login Credentials for the Demo</h2>
+  <p>If the panel asks you to log in as a specific role:</p>
+
+  <div class="card">
+    <table class="simple-table">
+      <thead><tr><th>Role</th><th>Email</th><th>Password</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill pill-red">Admin</span></td><td>admin@docathome.com</td><td>Admin@1234</td></tr>
+        <tr><td><span class="pill pill-green">Doctor</span></td><td>sarah.wilson@docathome.com</td><td>Doctor@1234</td></tr>
+        <tr><td><span class="pill pill-purple">Nurse</span></td><td>nurse.maria@docathome.com</td><td>Nurse@1234</td></tr>
+        <tr><td><span class="pill pill-blue">Patient</span></td><td>john.doe@example.com</td><td>Patient@1234</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-blue">
+    <p>💡 <strong>Every doctor uses Doctor@1234, every nurse uses Nurse@1234.</strong> If asked to log in as a different doctor or nurse, the password is the same.</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION 10: THE CHEAT CODE SPEECH -->
+<div class="section">
+  <div class="section-label"><span>Section 10</span></div>
+  <h2>🎤 The Opening Speech (memorize this)</h2>
+  <p>If they ask you to present the project, say exactly this:</p>
+
+  <div class="card highlight" style="border-left: 4px solid var(--blue); padding:24px">
+    <p style="color:var(--text);font-size:.95rem;font-style:italic;line-height:1.9;margin:0">
+    "DocAtHome is a role-based home healthcare management system built in C# WinForms with a SQL Server database.<br><br>
+    The problem it solves: in Bangladesh, booking a doctor or nurse for a home visit is disorganized — it's done through phone calls and word of mouth. Our system centralizes everything.<br><br>
+    There are four user roles. <strong>Patients</strong> book visits and pay. <strong>Doctors</strong> and <strong>Nurses</strong> manage their own queues and availability. The <strong>Admin</strong> has full oversight of everything in real time.<br><br>
+    The database has 7 tables in Third Normal Form. The app has 18 forms, supports async database calls to keep the UI responsive, has appointment conflict detection, brute-force login protection, OTP-based password recovery, and a full payment flow with Cash, Card, and Bkash options."
+    </p>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div class="card" style="text-align:center;padding:32px;margin-top:32px;border-color:rgba(16,185,129,.3)">
+  <div style="font-size:2.5rem;margin-bottom:12px">💪</div>
+  <h2 style="margin-bottom:8px">You've got this.</h2>
+  <p>Read this guide twice. Practice the opening speech out loud. Remember: you don't need to know the code. You need to understand <em>what the system does and why</em>. That's enough to hold your own.</p>
+</div>
+
+</div>
+</body>
+</html>

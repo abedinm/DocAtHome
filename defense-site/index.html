@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DocAtHome — Interactive Defense Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+        <rect width="32" height="32" rx="8" fill="#3b82f6"/>
+        <path d="M16 7 L25 12 L25 20 L16 25 L7 20 L7 12Z" stroke="white" stroke-width="1.5" fill="none"/>
+        <path d="M13 16h6M16 13v6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="brand-name">DocAtHome</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero"      class="nav-link active">Home</a></li>
+    <li><a href="#roles"     class="nav-link">Roles</a></li>
+    <li><a href="#schema"    class="nav-link">Schema</a></li>
+    <li><a href="#arena"     class="nav-link">⚔️ Arena</a></li>
+    <li><a href="#defensekit" class="nav-link">Defense Kit</a></li>
+  </ul>
+  <div class="nav-player">
+    <div class="player-badge" id="nav-level">Intern</div>
+    <div class="player-xp"><span>⚡</span><span id="nav-xp">0</span> XP</div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO -->
+<section class="section" id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="container hero-container">
+    <div class="hero-badge-pill"><span class="pulse-dot"></span>University Defense · Computer Science</div>
+    <h1 class="hero-title">
+      <span class="t-white">Doc</span><span class="t-blue">At</span><span class="t-white">Home</span>
+    </h1>
+    <p class="hero-sub">Role-based Home Healthcare Management System</p>
+    <div class="pill-row">
+      <span class="pill blue">C# WinForms</span>
+      <span class="pill green">SQL Server</span>
+      <span class="pill purple">.NET 4.8</span>
+      <span class="pill amber">ADO.NET</span>
+      <span class="pill slate">async/await</span>
+    </div>
+    <div class="stats-row" id="hero-stats">
+      <div class="stat"><div class="stat-num" data-count="18">0</div><div class="stat-lbl">Forms</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-num" data-count="7">0</div><div class="stat-lbl">DB Tables</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-num" data-count="4">0</div><div class="stat-lbl">User Roles</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-num" data-count="5">0</div><div class="stat-lbl">Nurse Services</div></div>
+      <div class="stat-div"></div>
+      <div class="stat"><div class="stat-num" data-count="500">0</div><div class="stat-lbl">BDT / Visit</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="#arena" class="btn btn-primary">⚔️ Enter Q&A Arena</a>
+      <a href="#roles" class="btn btn-ghost">🔍 Explore Roles</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ ROLES -->
+<section class="section" id="roles">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-title">User Roles</h2>
+      <p class="sec-sub">Four distinct dashboards — click a role to explore its full journey</p>
+    </div>
+    <div class="roles-grid" id="roles-grid"></div>
+    <div class="role-detail hidden" id="role-detail"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SCHEMA -->
+<section class="section" id="schema">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-title">Database Schema</h2>
+      <p class="sec-sub">7 tables · Third Normal Form · Click any table to inspect columns & relationships</p>
+    </div>
+    <div class="schema-wrap">
+      <div class="schema-diagram" id="schema-diagram"></div>
+      <svg class="schema-svg" id="schema-svg"></svg>
+    </div>
+    <div class="schema-detail hidden" id="schema-detail"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ ARENA -->
+<section class="section" id="arena">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-title">⚔️ Q&A Arena</h2>
+      <p class="sec-sub">Gamified defense prep — answer questions, earn XP, unlock badges, level up</p>
+    </div>
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud-item">
+        <div class="hud-lbl">Level</div>
+        <div class="hud-val" id="hud-level">Intern</div>
+      </div>
+      <div class="hud-xp-wrap">
+        <div class="hud-xp-txt"><span id="hud-xp">0</span> XP <span class="hud-next">/ <span id="hud-next">100</span></span></div>
+        <div class="xp-track"><div class="xp-fill" id="xp-fill"></div></div>
+      </div>
+      <div class="hud-item">
+        <div class="hud-lbl">🔥 Streak</div>
+        <div class="hud-val" id="hud-streak">0</div>
+      </div>
+      <div class="hud-item">
+        <div class="hud-lbl">Correct</div>
+        <div class="hud-val" id="hud-correct">0/0</div>
+      </div>
+    </div>
+
+    <!-- Category grid -->
+    <div class="cat-grid" id="cat-grid"></div>
+
+    <!-- Game panel (hidden until category selected) -->
+    <div class="game-panel hidden" id="game-panel">
+      <div class="gp-header">
+        <button class="btn-back" id="btn-back">← Categories</button>
+        <span class="gp-cat-label" id="gp-cat-label"></span>
+        <span class="gp-progress" id="gp-progress">1 / 5</span>
+      </div>
+      <div class="gp-prog-bar"><div class="gp-prog-fill" id="gp-prog-fill"></div></div>
+      <div class="mode-tabs" id="mode-tabs">
+        <button class="mode-tab active" data-mode="study">📖 Study</button>
+        <button class="mode-tab" data-mode="quiz">🎯 Quiz</button>
+        <button class="mode-tab" data-mode="speed">⚡ Speed</button>
+      </div>
+      <div class="q-area" id="q-area"></div>
+      <div class="gp-nav">
+        <button class="btn btn-ghost" id="btn-prev">← Prev</button>
+        <div class="q-dots" id="q-dots"></div>
+        <button class="btn btn-primary" id="btn-next">Next →</button>
+      </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="badges-wrap">
+      <h3 class="badges-title">🏆 Badges</h3>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ DEFENSE KIT -->
+<section class="section" id="defensekit">
+  <div class="container">
+    <div class="sec-header">
+      <h2 class="sec-title">Defense Kit</h2>
+      <p class="sec-sub">Everything you need on the day — memorize this before you walk in</p>
+    </div>
+    <div class="kit-grid">
+      <div class="kit-card" id="kit-creds">
+        <div class="kit-head"><h3>🔑 Login Credentials</h3><button class="btn-sm" onclick="copyCreds()">Copy All</button></div>
+        <div id="creds-body"></div>
+      </div>
+      <div class="kit-card" id="kit-pricing">
+        <div class="kit-head"><h3>💰 Service Pricing (BDT)</h3></div>
+        <div id="pricing-body"></div>
+      </div>
+      <div class="kit-card" id="kit-timing">
+        <div class="kit-head"><h3>⏱️ Demo Timing</h3></div>
+        <div id="timing-body"></div>
+      </div>
+      <div class="kit-card" id="kit-flow">
+        <div class="kit-head"><h3>🔄 Appointment Status Flow</h3></div>
+        <div id="flow-body"></div>
+      </div>
+    </div>
+    <div class="quickfire-wrap">
+      <h3 class="qf-title">⚡ Quick-Fire Facts — Memorize These</h3>
+      <div class="qf-grid" id="qf-grid"></div>
+    </div>
+    <div class="confidence-wrap">
+      <h3 class="conf-title">💪 Confidence Anchors</h3>
+      <div class="conf-grid" id="conf-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Toast container -->
+<div id="toast-wrap"></div>
+<!-- Confetti -->
+<canvas id="confetti-canvas"></canvas>
+
+<script src="app.js"></script>
+</body>
+</html>
